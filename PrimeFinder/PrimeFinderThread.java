@@ -6,6 +6,7 @@ public class PrimeFinderThread extends Thread{
 
 	
 	int a,b;
+	int numThreads;
 	
 	private List<Integer> primes=new LinkedList<Integer>();
 	
@@ -14,7 +15,7 @@ public class PrimeFinderThread extends Thread{
 		this.a = a;
 		this.b = b;
 	}
-
+	
 	public void run(){
 		for (int i=a;i<=b;i++){						
 			if (isPrime(i)){
