@@ -7,17 +7,25 @@ public class PrimeFinderThread extends Thread{
 	
 	int a,b;
 	int numThreads;
+	private final PauseControl pauseControl;
 	
 	private List<Integer> primes=new LinkedList<Integer>();
 	
-	public PrimeFinderThread(int a, int b) {
+	public PrimeFinderThread(int a, int b, PauseControl pauseControl) {
 		super();
 		this.a = a;
 		this.b = b;
+		this.pauseControl = pauseControl;
 	}
 	
-	public void run(){
-		for (int i=a;i<=b;i++){						
+	public synchronized void run(){
+		
+		for (int i=a;i<=b;i++){
+			try {
+                pauseControl.checkPaused();
+            } catch (InterruptedException e) {
+                break;
+            }
 			if (isPrime(i)){
 				primes.add(i);
 				System.out.println(i);
@@ -26,6 +34,8 @@ public class PrimeFinderThread extends Thread{
 		
 		
 	}
+
+	
 	
 	boolean isPrime(int n) {
 	    if (n%2==0) return false;

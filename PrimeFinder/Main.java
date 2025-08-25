@@ -1,37 +1,48 @@
 package PrimeFinder;
 
+import java.util.Scanner;
+
 public class Main {
-
+    
+    /*
+     * This program finds all prime numbers in the range from 0 to 50,000,000
+     * using 3 threads. Each thread is responsible for a subrange of numbers.
+     * The ranges are divided as evenly as possible among the threads.
+     * The time taken to complete the computation is printed at the end.
+     */
     public static void main(String[] args) {
-        final int numThreads = Runtime.getRuntime().availableProcessors();
-        final int from = 0;
-        final int to = 500_000_000;
+        long startTime = System.currentTimeMillis();
+        PauseControl pauseControl = new PauseControl();
+        PrimeFinderThread pft1 = new PrimeFinderThread(0, 166666666, pauseControl);
+        PrimeFinderThread pft2 = new PrimeFinderThread(166666667, 333333332, pauseControl);
+        PrimeFinderThread pft3 = new PrimeFinderThread(333333333, 500000000, pauseControl);
 
-        PrimeFinderThread[] threads = new PrimeFinderThread[numThreads];
-        int range = to - from + 1;
-        int base = range / numThreads;
-        int rem = range % numThreads;
+        pft1.start();
+        pft2.start();
+        pft3.start();
+        try {
+            Thread.sleep(5000);
+            pauseControl.pause();
+            
+            int totalPrimes = pft1.getPrimes().size() + pft2.getPrimes().size() + pft3.getPrimes().size();
+            System.out.println("Primes found in 5s: " + totalPrimes);
 
-        int start = from;
-        for (int i = 0; i < numThreads; i++) {
-            int chunk = base + (i < rem ? 1 : 0);
-            int end = start + chunk - 1;
-            if (end > to) end = to;
-            threads[i] = new PrimeFinderThread(start, end);
-            start = end + 1;
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("Presione ENTER para continuar...");
+            scanner.nextLine();
+            scanner.close();
+
+            pauseControl.resume();
+            pft1.join();
+            pft2.join();
+            pft3.join();
+
+            long endTime = System.currentTimeMillis();
+            System.out.println("Time taken: " + (endTime - startTime) + "ms ");
+            
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
-        long t0 = System.currentTimeMillis();
-        for (PrimeFinderThread t : threads) t.start();
-        for (PrimeFinderThread t : threads) {
-            try {
-                t.join();
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
-        }
-        long t1 = System.currentTimeMillis();
-        System.out.println("Total time: " + (t1 - t0) + " ms");
         
     }
 
