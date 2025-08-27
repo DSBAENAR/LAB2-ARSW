@@ -3,6 +3,7 @@ package DogTrack;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+
 import javax.swing.JButton;
 
 public class MainCanodromo {
@@ -12,6 +13,8 @@ public class MainCanodromo {
     private static Canodromo can;
 
     private static RegistroLlegada reg = new RegistroLlegada();
+
+    private static ControlLock control = new ControlLock();
 
     public static void main(String[] args) {
         can = new Canodromo(17, 100);
@@ -32,8 +35,9 @@ public class MainCanodromo {
                         new Thread() {
                             public void run() {
                                 for (int i = 0; i < can.getNumCarriles(); i++) {
+
                                     //crea los hilos 'galgos'
-                                    galgos[i] = new Galgo(can.getCarril(i), "" + i, reg);
+                                    galgos[i] = new Galgo(can.getCarril(i), "" + i, reg, control);
                                     //inicia los hilos
                                     galgos[i].start();
 
@@ -48,7 +52,7 @@ public class MainCanodromo {
                                     }
                                 }
 
-				can.winnerDialog(reg.getGanador(),reg.getUltimaPosicionAlcanzada() - 1); 
+				                can.winnerDialog(reg.getGanador(),reg.getUltimaPosicionAlcanzada() - 1); 
                                 System.out.println("El ganador fue:" + reg.getGanador());
                             }
                         }.start();
@@ -61,7 +65,9 @@ public class MainCanodromo {
                 new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
+                        control.pause();
                         System.out.println("Carrera pausada!");
+
                     }
                 }
         );
@@ -70,6 +76,7 @@ public class MainCanodromo {
                 new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
+                        control.resume();
                         System.out.println("Carrera reanudada!");
                     }
                 }
