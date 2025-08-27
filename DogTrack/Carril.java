@@ -115,6 +115,7 @@ public class Carril {
 	public void reStart() {
 		for (int k = 0; k < paso.length; k++) {
 			paso[k].setBackground(off);
+            setPasoOff(k);
 		}
 		llegada.setBackground(start);
 		llegada.setText(name);

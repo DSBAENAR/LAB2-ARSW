@@ -54,8 +54,10 @@ public class MainCanodromo {
 
 				                can.winnerDialog(reg.getGanador(),reg.getUltimaPosicionAlcanzada() - 1); 
                                 System.out.println("El ganador fue:" + reg.getGanador());
+                                ((JButton) e.getSource()).setEnabled(true);
                             }
                         }.start();
+                        
 
                     }
                 }
@@ -78,6 +80,19 @@ public class MainCanodromo {
                     public void actionPerformed(ActionEvent e) {
                         control.resume();
                         System.out.println("Carrera reanudada!");
+                    }
+                }
+        );
+
+        can.setRestartAction(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        control.resume();
+                        can.restart();
+
+                        System.out.println("Carrera reiniciada!");
+                        ((JButton) e.getSource()).setEnabled(true);
                     }
                 }
         );

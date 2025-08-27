@@ -30,7 +30,7 @@ public class Galgo extends Thread {
 			
 			if (paso == carril.size()) {						
 				carril.finish();
-				int ubicacion=regl.getUltimaPosicionAlcanzada();
+				int ubicacion=regl.marcarLlegada(getName());
 				regl.setUltimaPosicionAlcanzada(ubicacion+1);
 				System.out.println("El galgo "+this.getName()+" llego en la posicion "+ubicacion);
 				if (ubicacion==1){
