@@ -28,12 +28,13 @@ public class Carril {
 	private String name;
 
 	/**
-	 * Construye un carril
 	 * 
+	 *  Number of steps
 	 * @param nPasos
-	 *            Numero de pasos del carril
-	 * @param name
-	 *            Nombre del carril
+     * 
+     * Lane name
+     *  @param name
+	 *
 	 */
 	public Carril(int nPasos, String name) {
 		paso = new JButton[nPasos];
@@ -49,7 +50,7 @@ public class Carril {
 	}
 
 	/**
-	 * Tama��o del carril en numero de pasos
+	 * Size of the carril (number of steps)
 	 * 
 	 * @return
 	 */
@@ -62,7 +63,7 @@ public class Carril {
 	}
 
 	/**
-	 * Retorna el i-esimo paso del carril
+	 * Return the i-th step of the carril
 	 * 
 	 * @param i
 	 * @return
@@ -72,7 +73,7 @@ public class Carril {
 	}
 
 	/**
-	 * Retorna la bandera de llegada del carril
+	 * Return the button indicating the finish line
 	 * 
 	 * @return
 	 */
@@ -81,7 +82,7 @@ public class Carril {
 	}
 
 	/**
-	 * Indica que el paso i ha sido utilizado
+	 * Indicate that the step i is being used
 	 * 
 	 * @param i
 	 */
