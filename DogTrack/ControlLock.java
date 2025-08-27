@@ -9,7 +9,9 @@ public class ControlLock {
     private final Lock lock = new ReentrantLock();
     private final Condition unpaused = lock.newCondition();
 
-    
+    /*
+     * Pauses the thread by setting the paused flag to true.
+     */
 
     public void pause() {
        lock.lock();
@@ -21,6 +23,9 @@ public class ControlLock {
         
     }
 
+    /*
+     * Resumes the thread by setting the paused flag to false and signaling all waiting threads.
+     */
     public void resume() {
         lock.lock();
         try {
@@ -31,6 +36,9 @@ public class ControlLock {
         }
     }
 
+    /*
+     * Checks if the thread is paused and waits if it is.
+     */
     public void checkPaused() throws InterruptedException {
         lock.lock();
         try {

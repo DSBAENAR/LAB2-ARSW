@@ -135,7 +135,7 @@ public class Canodromo extends JFrame {
 	}
 
 	/**
-	 * Asocia una accion con el boton de start
+	 * Associate an action with the start button 
 	 * 
 	 * @param action
 	 */
@@ -144,7 +144,7 @@ public class Canodromo extends JFrame {
 	}
 
 	/**
-	 * Asocia una accion con el boton de stop
+	 * Associate an action with the stop button 
 	 * 
 	 * @param action
 	 */
@@ -153,14 +153,16 @@ public class Canodromo extends JFrame {
 	}
 
 	/**
-	 * Asocia una accion con el boton de continuar
-	 * 
+     * Associate an action with the continue button 
 	 * @param action
 	 */
 	public void setContinueAction(ActionListener action){
 		butContinue.addActionListener(action);
 	}
 
+    /*
+     * Associate an action with the restart button
+     */
     public void setRestartAction(ActionListener action){
         butRestart.addActionListener(action);
     }
