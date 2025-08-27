@@ -11,7 +11,7 @@ public class ControlLock {
 
     
 
-    public synchronized void pause() {
+    public void pause() {
        lock.lock();
         try {
             paused = true;
@@ -21,7 +21,7 @@ public class ControlLock {
         
     }
 
-    public synchronized void resume() {
+    public void resume() {
         lock.lock();
         try {
             paused = false;
