@@ -37,8 +37,17 @@ public class MainCanodromo {
                                     //inicia los hilos
                                     galgos[i].start();
 
+
                                 }
-                               
+                                //espera a que terminen los hilos
+                                for (int i = 0; i < can.getNumCarriles(); i++) {
+                                    try {
+                                        galgos[i].join();
+                                    } catch (InterruptedException exception) {
+                                        exception.printStackTrace();
+                                    }
+                                }
+
 				can.winnerDialog(reg.getGanador(),reg.getUltimaPosicionAlcanzada() - 1); 
                                 System.out.println("El ganador fue:" + reg.getGanador());
                             }
